@@ -24,8 +24,8 @@ public class HibernateUtil {
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
                 settings.put(Environment.URL, "jdbc:mysql://localhost/duolingo");
                 
-                settings.put(Environment.USER, "");
-                settings.put(Environment.PASS, "");
+                settings.put(Environment.USER, "admin");
+                settings.put(Environment.PASS, "admin");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 
                 settings.put(Environment.SHOW_SQL, "true");
