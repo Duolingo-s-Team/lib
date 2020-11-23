@@ -9,8 +9,13 @@ import org.hibernate.service.ServiceRegistry;
 
 import models.Category;
 import models.Course;
+import models.Exercise;
+import models.ExerciseType;
 import models.Language;
+import models.League;
 import models.Level;
+import models.Shop;
+import models.User;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
@@ -22,10 +27,10 @@ public class HibernateUtil {
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mysql://localhost/duolingo");
+                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/Duolingo");
                 
-                settings.put(Environment.USER, "admin");
-                settings.put(Environment.PASS, "admin");
+                settings.put(Environment.USER, "DuolingoManager");
+                settings.put(Environment.PASS, "NoSeProgramar0.");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 
                 settings.put(Environment.SHOW_SQL, "true");
@@ -37,12 +42,16 @@ public class HibernateUtil {
                 configuration.setProperties(settings);
                 
                 // Clases:
-                configuration.addAnnotatedClass(Language.class);
-                configuration.addAnnotatedClass(Course.class);
-                configuration.addAnnotatedClass(Level.class);
                 configuration.addAnnotatedClass(Category.class);
-
-
+                configuration.addAnnotatedClass(Course.class);
+                configuration.addAnnotatedClass(Exercise.class);
+                configuration.addAnnotatedClass(ExerciseType.class);
+               	configuration.addAnnotatedClass(Language.class);
+                configuration.addAnnotatedClass(League.class);
+                configuration.addAnnotatedClass(Level.class);
+                configuration.addAnnotatedClass(Shop.class);
+                configuration.addAnnotatedClass(User.class);
+                
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

@@ -24,7 +24,12 @@ public class Shop {
 		this.product_price = product_price;
 	}
 
-
+	public Shop(long product_id, String product_name, double product_price) {
+		super();
+		this.product_id = product_id;
+		this.product_name = product_name;
+		this.product_price = product_price;
+	}
 
 	// Getters && Setters:
 	public long getProduct_id() {

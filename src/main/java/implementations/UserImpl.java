@@ -2,6 +2,11 @@ package implementations;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -11,33 +16,38 @@ import utils.HibernateUtil;
 
 public class UserImpl implements IUser {
 
-	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
 	public List<User> getAllUsers() {
-		Transaction t = null;
-		try (
-			Session session = HibernateUtil.getSessionFactory().openSession()) {
-			t = session.beginTransaction();
-			
-			List<User> users = session.createCriteria(User.class).list();
-		
-			t.commit();			
-			
-			return users;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<User> query = queryBuilder.createQuery(User.class);
+	        Root<User> from = query.from(User.class);
+	        
+	        CriteriaQuery<User> all = query.select(from);
+	        TypedQuery<User> allQuery = session.createQuery(all);
+	        
+	        return allQuery.getResultList();	
 		} catch (Exception e) {
-			System.out.println("Fatal Exception. Exiting with code -1");
+			System.out.println("Exception while getting all the users.");		
 		}
 		return null;
 	}
 
 	@Override
 	public User getUserById(long user_id) {
-		 
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Transaction t = session.beginTransaction();
+			if (t.isActive()) {
+				return session.get(User.class, user_id);
+			}
+		} catch (Exception e) {
+			System.out.println("Exception while getting the user with id " + (user_id) + ".");
+		}
 		return null;
 	}
 
 	@Override
-	public boolean deleteUserById(User user) {
+	public boolean deleteUser(User user) {
 		Transaction t = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			t = session.beginTransaction();
@@ -45,11 +55,9 @@ public class UserImpl implements IUser {
 			session.delete(user);
 		
 			t.commit();	
-			
 			return true;
 		} catch (Exception e) {
-			System.out.println("Fatal Exception. Exiting with code -1");
-		}
+			System.out.println("Exception while deleting the user with id" + (user.getUser_id()) + ".");		}
 		return false;
 	}
 
@@ -62,19 +70,26 @@ public class UserImpl implements IUser {
 			session.save(user);
 		
 			t.commit();			
-			
 			return user;
 		} catch (Exception e) {
-			System.out.println("Fatal Exception. Exiting with code -1");
-		}
+			System.out.println("Exception while inserting the user with id " + (user.getUser_id()) + ".");		}
 		return null;
 	}
 
 	@Override
 	public User updateUser(User user) {
-		 
+		Transaction t = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			t = session.beginTransaction();
+			
+			session.merge(user);
+		
+			t.commit();			
+			return user;
+		} catch (Exception e) {
+			System.out.println("Exception while updating the user with id " + (user.getUser_id()) + ".");
+		}
 		return null;
 	}
-
 	
 }

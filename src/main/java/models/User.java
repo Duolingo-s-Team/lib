@@ -5,16 +5,22 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long user_id;
+	
+	@Column(unique = true)
 	private String username;
 	private String password;
 	private int coins;
 	private String userAvatar;
 	private int userWinstreak;
 	private String userEmail;
+	
+	@JoinColumn(name = "league_rank")
+    @OneToOne(fetch = FetchType.LAZY)
+    private League league;
 	
 	// Constructors
 	public User() {
@@ -23,6 +29,17 @@ public class User {
 	
 	public User(String username, String password, int coins, String userAvatar, int userWinstreak, String userEmail) {
 		super();
+		this.username = username;
+		this.password = password;
+		this.coins = coins;
+		this.userAvatar = userAvatar;
+		this.userWinstreak = userWinstreak;
+		this.userEmail = userEmail;
+	}
+	
+	public User(long user_id, String username, String password, int coins, String userAvatar, int userWinstreak, String userEmail) {
+		super();
+		this.user_id = user_id;
 		this.username = username;
 		this.password = password;
 		this.coins = coins;

@@ -21,6 +21,12 @@ public class Level {
 		super();
 		this.level_name = level_name;
 	}
+	
+	public Level(long level_id, String level_name) {
+		super();
+		this.level_id = level_id;
+		this.level_name = level_name;
+	}
 
 	public long getLevel_id() {
 		return level_id;

@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,10 @@ public class Category {
 	
 	private String category_name;
 	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "category_id")
+	private List<Level> levels;
+	
 	// Constructors
 	public Category() {
 		// Empty Constructor
@@ -19,6 +25,12 @@ public class Category {
 	
 	public Category(String category_name) {
 		super();
+		this.category_name = category_name;
+	}
+	
+	public Category(long category_id, String category_name) {
+		super();
+		this.category_id = category_id;
 		this.category_name = category_name;
 	}
 

@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,10 @@ public class Language {
 	
 	private String language_name;
 	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "language_id")
+	private List<Course> courses;
+	
 	// Constructors
 	public Language() {
 		// Empty Constructor
@@ -20,6 +26,13 @@ public class Language {
 	public Language(String language_name) {
 		super();
 		this.language_name = language_name;
+	}
+	
+	public Language(long language_id, String language_name, List<Course> courses) {
+		super();
+		this.language_id = language_id;
+		this.language_name = language_name;
+		this.courses = courses;
 	}
 
 	// Getters && Setters:
