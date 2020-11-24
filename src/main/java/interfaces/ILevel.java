@@ -10,6 +10,8 @@ public interface ILevel {
 	
 	public Level getLevelById(long level_id);
 	
+	public Level getLevelByName(String level_name);
+	
 	public boolean deleteLevel(Level level);
 	
 	public Level insertLevel(Level level);

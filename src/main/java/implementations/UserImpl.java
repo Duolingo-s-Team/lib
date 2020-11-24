@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -45,6 +46,27 @@ public class UserImpl implements IUser {
 		}
 		return null;
 	}
+	
+	@Override
+	public User getUserByName(String username) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<User> query = queryBuilder.createQuery(User.class);
+	        Root<User> from = query.from(User.class);
+	        ParameterExpression<String> where = queryBuilder.parameter(String.class);
+	        
+	        CriteriaQuery<User> select = query.select(from).where(queryBuilder.equal(from.get("username"), where));
+	        TypedQuery<User> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, username);
+	      
+	        return allQuery.getResultList().get(allQuery.getFirstResult());	
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting the user with name '" + (username) + "'.");
+		}
+		return null;
+	}
 
 	@Override
 	public boolean deleteUser(User user) {
@@ -54,7 +76,7 @@ public class UserImpl implements IUser {
 			
 			session.delete(user);
 		
-			t.commit();	
+			t.commit();
 			return true;
 		} catch (Exception e) {
 			System.out.println("Exception while deleting the user with id" + (user.getUser_id()) + ".");		}
@@ -69,7 +91,7 @@ public class UserImpl implements IUser {
 			
 			session.save(user);
 		
-			t.commit();			
+			t.commit();		
 			return user;
 		} catch (Exception e) {
 			System.out.println("Exception while inserting the user with id " + (user.getUser_id()) + ".");		}

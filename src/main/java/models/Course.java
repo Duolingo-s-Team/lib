@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import modelsMtM.User;
+
 @Entity
 @Table(name = "courses")
 public class Course {
@@ -12,11 +14,18 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long course_id;
 	
+	@Column(unique = true)
 	private String course_name;
+	
+	private boolean isFinished;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "course_id")
 	private List<Category> categories;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "Users_Courses", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "course_id")})
+	private List<User> users;
 	
 	// Constructors
 	public Course() {
@@ -32,7 +41,7 @@ public class Course {
 		super();
 		this.course_id = course_id;
 		this.course_name = course_name;
-		this.categories = categories;
+		this.setCategories(categories);
 	}
 
 	public long getCourse_id() {
@@ -50,5 +59,37 @@ public class Course {
 	public void setCourse_name(String course_name) {
 		this.course_name = course_name;
 	}
+	
+	public boolean isFinished() {
+		return isFinished;
+	}
 
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+	
+	public void addCategory(Category category) {
+		this.categories.add(category);
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+	
+	public void addUser(User user) {
+		this.users.add(user);
+	}
+	
 }

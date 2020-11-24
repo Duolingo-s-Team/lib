@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,12 @@ public class Level {
 	private long level_id;
 	
 	private String level_name;
+	
+	private boolean isComplete;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "exercise_id")
+	private List<Exercise> exercises;
 	
 	// Constructors
 	public Level() {
@@ -42,6 +50,26 @@ public class Level {
 
 	public void setLevel_name(String level_name) {
 		this.level_name = level_name;
+	}
+
+	public boolean isComplete() {
+		return isComplete;
+	}
+
+	public void setComplete(boolean isComplete) {
+		this.isComplete = isComplete;
+	}
+
+	public List<Exercise> getExercises() {
+		return exercises;
+	}
+
+	public void setExercises(List<Exercise> exercises) {
+		this.exercises = exercises;
+	}
+	
+	public void addExercise(Exercise exercise) {
+		this.exercises.add(exercise);
 	}
 
 }

@@ -47,4 +47,12 @@ public class League {
 		this.league_pos = league_pos;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

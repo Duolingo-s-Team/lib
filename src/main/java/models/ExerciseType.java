@@ -10,6 +10,7 @@ public class ExerciseType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long type_id;
 	
+	@Column(unique = true)
 	private String type_name;
 	
 	// Constructors

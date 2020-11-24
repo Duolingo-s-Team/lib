@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -42,6 +43,27 @@ public class CategoryImpl implements ICategory {
 			}
 		} catch (Exception e) {
 			System.out.println("Exception while getting the category with id " + (category_id) + ".");
+		}
+		return null;
+	}
+	
+	@Override
+	public Category getCategoryByName(String category_name) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Category> query = queryBuilder.createQuery(Category.class);
+	        Root<Category> from = query.from(Category.class);
+	        ParameterExpression<String> where = queryBuilder.parameter(String.class);
+	        
+	        CriteriaQuery<Category> select = query.select(from).where(queryBuilder.equal(from.get("category_name"), where));
+	        TypedQuery<Category> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, category_name);
+	      
+	        return allQuery.getResultList().get(allQuery.getFirstResult());
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting the category with name '" + (category_name) + "'.");
 		}
 		return null;
 	}

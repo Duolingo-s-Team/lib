@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -42,6 +43,27 @@ public class CourseImpl implements ICourse {
 			}
 		} catch (Exception e) {
 			System.out.println("Exception while getting the course with id " + (course_id) + ".");
+		}
+		return null;
+	}
+	
+	@Override
+	public Course getCourseByName(String course_name) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Course> query = queryBuilder.createQuery(Course.class);
+	        Root<Course> from = query.from(Course.class);
+	        ParameterExpression<String> where = queryBuilder.parameter(String.class);
+	        
+	        CriteriaQuery<Course> select = query.select(from).where(queryBuilder.equal(from.get("course_name"), where));
+	        TypedQuery<Course> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, course_name);
+	      
+	        return allQuery.getResultList().get(allQuery.getFirstResult());
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting the course with name '" + (course_name) + "'.");
 		}
 		return null;
 	}

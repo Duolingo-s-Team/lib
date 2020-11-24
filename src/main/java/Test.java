@@ -18,7 +18,10 @@ public class Test {
 		
 		userManager.insertUser(u2);
 		userManager.insertUser(u3);
+		
+		System.out.println(userManager.getUserByName("User2"));
 		System.out.println(userManager.getAllUsers());
+		
 	}
 
 }

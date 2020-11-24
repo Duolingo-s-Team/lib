@@ -32,7 +32,7 @@ public class Language {
 		super();
 		this.language_id = language_id;
 		this.language_name = language_name;
-		this.courses = courses;
+		this.setCourses(courses);
 	}
 
 	// Getters && Setters:
@@ -51,5 +51,19 @@ public class Language {
 	public void setLanguage_name(String language_name) {
 		this.language_name = language_name;
 	}
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	
+	public void addCourse(Course course) {
+		this.courses.add(course);
+	}
+	
+	
 
 }

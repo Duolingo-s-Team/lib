@@ -10,6 +10,8 @@ public interface IUser {
 	
 	public User getUserById(long user_id);
 	
+	public User getUserByName(String username);
+	
 	public boolean deleteUser(User user);
 	
 	public User insertUser(User user);

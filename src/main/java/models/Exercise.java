@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.*;
+
+import modelsMtM.User;
 
 @Entity
 @Table(name = "exercises")
@@ -18,6 +21,15 @@ public class Exercise {
 	private String exercise_name;
 	private int exercise_exp;
 	private byte[] content;
+	private boolean isFinished;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "User_Exercise", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "exercise_id")})
+	private List<User> users;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "type_id")
+	private List<ExerciseType> types;
 	
 	// Constructors
 	public Exercise() {
@@ -73,11 +85,35 @@ public class Exercise {
 		
 	}
 
-	
-	
-	
+	public boolean isFinished() {
+		return isFinished;
+	}
 
-	
-	
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
+	}
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+	
+	public void addUser(User user) {
+		this.users.add(user);
+	}
+
+	public List<ExerciseType> getTypes() {
+		return types;
+	}
+
+	public void setTypes(List<ExerciseType> types) {
+		this.types = types;
+	}
+	
+	public void addType(ExerciseType type) {
+		this.types.add(type);
+	}
 }

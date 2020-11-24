@@ -10,6 +10,8 @@ public interface ICourse {
 	
 	public Course getCourseById(long course_id);
 	
+	public Course getCourseByName(String course_name);
+	
 	public boolean deleteCourse(Course course);
 	
 	public Course insertCourse(Course course);

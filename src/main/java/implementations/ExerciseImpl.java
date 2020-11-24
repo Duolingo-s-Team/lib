@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -42,6 +43,27 @@ public class ExerciseImpl implements IExercise {
 			}
 		} catch (Exception e) {
 			System.out.println("Exception while getting the exercise with id " + (exercise_id) + ".");
+		}
+		return null;
+	}
+	
+	@Override
+	public Exercise getExerciseByName(String exercise_name) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Exercise> query = queryBuilder.createQuery(Exercise.class);
+	        Root<Exercise> from = query.from(Exercise.class);
+	        ParameterExpression<String> where = queryBuilder.parameter(String.class);
+	        
+	        CriteriaQuery<Exercise> select = query.select(from).where(queryBuilder.equal(from.get("exercise_name"), where));
+	        TypedQuery<Exercise> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, exercise_name);
+	      
+	        return allQuery.getResultList().get(allQuery.getFirstResult());
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting the exercise with name '" + (exercise_name) + "'.");
 		}
 		return null;
 	}

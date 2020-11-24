@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -12,6 +13,7 @@ import org.hibernate.Transaction;
 
 import interfaces.ILanguage;
 import models.Language;
+import models.User;
 import utils.HibernateUtil;
 
 public class LanguageImpl implements ILanguage {
@@ -42,6 +44,27 @@ public class LanguageImpl implements ILanguage {
 			}
 		} catch (Exception e) {
 			System.out.println("Exception while getting the language with id " + (language_id) + ".");
+		}
+		return null;
+	}
+	
+	@Override
+	public User getLanguageByName(String language_name) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<User> query = queryBuilder.createQuery(User.class);
+	        Root<User> from = query.from(User.class);
+	        ParameterExpression<String> where = queryBuilder.parameter(String.class);
+	        
+	        CriteriaQuery<User> select = query.select(from).where(queryBuilder.equal(from.get("language_name"), where));
+	        TypedQuery<User> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, language_name);
+	      
+	        return allQuery.getResultList().get(allQuery.getFirstResult());	
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting the language with name '" + (language_name) + "'.");
 		}
 		return null;
 	}

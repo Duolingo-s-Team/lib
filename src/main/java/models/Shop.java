@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,8 +12,14 @@ public class Shop {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long product_id;
 	
+	@Column(unique = true)
 	private String product_name;
 	private double product_price;
+	private boolean isPurchased;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+	private List<Shop> products;
 	
 	// Constructors
 	public Shop() {
@@ -55,10 +63,24 @@ public class Shop {
 	public void setProduct_price(double product_price) {
 		this.product_price = product_price;
 	}
-	
-	
 
+	public boolean isPurchased() {
+		return isPurchased;
+	}
 
+	public void setPurchased(boolean isPurchased) {
+		this.isPurchased = isPurchased;
+	}
+
+	public List<Shop> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Shop> products) {
+		this.products = products;
+	}
 	
-
+	public void addProduct(Shop product) {
+		this.products.add(product);
+	}
 }

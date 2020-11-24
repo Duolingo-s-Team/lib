@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,20 @@ public class User {
 	@JoinColumn(name = "league_rank")
     @OneToOne(fetch = FetchType.LAZY)
     private League league;
+	
+	@ManyToMany(mappedBy = "users")
+	private List<Course> courses;
+	
+	@ManyToMany(mappedBy = "users")
+	private List<Exercise> exercises;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+	private List<Follower> followers;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "course_id")
+	private List<Following> following;
 	
 	// Constructors
 	public User() {
@@ -103,6 +119,62 @@ public class User {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	
+	public void addLevel(Course course) {
+		this.courses.add(course);
+	}
+
+	public List<Exercise> getExercises() {
+		return exercises;
+	}
+
+	public void setExercises(List<Exercise> exercises) {
+		this.exercises = exercises;
+	}
+
+	public void addExercise(Exercise exercise) {
+		this.exercises.add(exercise);
+	}
+	
+	public List<Follower> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(List<Follower> followers) {
+		this.followers = followers;
+	}
+	
+	public void addFollower(Follower follower) {
+		this.followers.add(follower);
+	}
+
+	public List<Following> getFollowing() {
+		return following;
+	}
+
+	public void setFollowingUsers(List<Following> following) {
+		this.following = following;
+	}
+	
+	public void addFollowingUser(Following following) {
+		this.following.add(following);
+	}
+
+	public League getLeague() {
+		return league;
+	}
+
+	public void setLeague(League league) {
+		this.league = league;
 	}
 
 }
