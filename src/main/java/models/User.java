@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -35,12 +36,15 @@ public class User {
 	private List<Follower> followers;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "user_id")
 	private List<Following> following;
 	
 	// Constructors
 	public User() {
-		// Empty Constructor
+		this.courses = new ArrayList<Course>();
+		this.exercises = new ArrayList<Exercise>();
+		this.followers = new ArrayList<Follower>();
+		this.following = new ArrayList<Following>();
 	}
 	
 	public User(String username, String password, int coins, String userAvatar, int userWinstreak, String userEmail) {
@@ -51,6 +55,10 @@ public class User {
 		this.userAvatar = userAvatar;
 		this.userWinstreak = userWinstreak;
 		this.userEmail = userEmail;
+		this.courses = new ArrayList<Course>();
+		this.exercises = new ArrayList<Exercise>();
+		this.followers = new ArrayList<Follower>();
+		this.following = new ArrayList<Following>();
 	}
 	
 	public User(long user_id, String username, String password, int coins, String userAvatar, int userWinstreak, String userEmail) {
@@ -62,6 +70,10 @@ public class User {
 		this.userAvatar = userAvatar;
 		this.userWinstreak = userWinstreak;
 		this.userEmail = userEmail;
+		this.courses = new ArrayList<Course>();
+		this.exercises = new ArrayList<Exercise>();
+		this.followers = new ArrayList<Follower>();
+		this.following = new ArrayList<Following>();
 	}
 
 	// Getters && Setters:
@@ -129,7 +141,7 @@ public class User {
 		this.courses = courses;
 	}
 	
-	public void addLevel(Course course) {
+	public void addCourse(Course course) {
 		this.courses.add(course);
 	}
 

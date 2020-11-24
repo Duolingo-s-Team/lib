@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -22,18 +23,20 @@ public class Category {
 	
 	// Constructors
 	public Category() {
-		// Empty Constructor
+		this.levels = new ArrayList<Level>();
 	}
 	
 	public Category(String category_name) {
 		super();
 		this.category_name = category_name;
+		this.levels = new ArrayList<Level>();
 	}
 	
 	public Category(long category_id, String category_name) {
 		super();
 		this.category_id = category_id;
 		this.category_name = category_name;
+		this.levels = new ArrayList<Level>();
 	}
 
 	// Getters && Setters:

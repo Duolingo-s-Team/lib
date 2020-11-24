@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -23,13 +24,14 @@ public class Shop {
 	
 	// Constructors
 	public Shop() {
-		// Empty Constructor
+		this.products = new ArrayList<Shop>();
 	}
 	
 	public Shop(String product_name, double product_price) {
 		super();
 		this.product_name = product_name;
 		this.product_price = product_price;
+		this.products = new ArrayList<Shop>();
 	}
 
 	public Shop(long product_id, String product_name, double product_price) {
@@ -37,6 +39,7 @@ public class Shop {
 		this.product_id = product_id;
 		this.product_name = product_name;
 		this.product_price = product_price;
+		this.products = new ArrayList<Shop>();
 	}
 
 	// Getters && Setters:

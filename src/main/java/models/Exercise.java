@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class Exercise {
 	private boolean isFinished;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "User_Exercise", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "exercise_id")})
+    @JoinTable(name = "users_exercises", joinColumns = {@JoinColumn(name = "exercise_id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})
 	private List<User> users;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -31,7 +32,8 @@ public class Exercise {
 	
 	// Constructors
 	public Exercise() {
-		// Empty Constructor
+		this.users = new ArrayList<User>();
+		this.types = new ArrayList<ExerciseType>();
 	}
 	
 	public Exercise(String exercise_name, int exercise_exp, byte[] content) {
@@ -39,6 +41,8 @@ public class Exercise {
 		this.exercise_name = exercise_name;
 		this.exercise_exp = exercise_exp;
 		this.content = content;
+		this.users = new ArrayList<User>();
+		this.types = new ArrayList<ExerciseType>();
 	}
 
 	// Getters && Setters:

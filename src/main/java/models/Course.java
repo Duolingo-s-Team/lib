@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -22,24 +23,28 @@ public class Course {
 	private List<Category> categories;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "User_Course", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "course_id")})
+    @JoinTable(name = "users_courses", joinColumns = {@JoinColumn(name = "course_id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})
 	private List<User> users;
 	
 	// Constructors
 	public Course() {
-		// Empty Constructor
+		this.categories = new ArrayList<Category>();
+		this.users = new ArrayList<User>();
 	}
 	
 	public Course(String course_name) {
 		super();
 		this.course_name = course_name;
+		this.categories = new ArrayList<Category>();
+		this.users = new ArrayList<User>();
 	}
 	
-	public Course(long course_id, String course_name, List<Category> categories) {
+	public Course(long course_id, String course_name) {
 		super();
 		this.course_id = course_id;
 		this.course_name = course_name;
-		this.setCategories(categories);
+		this.categories = new ArrayList<Category>();
+		this.users = new ArrayList<User>();
 	}
 
 	public long getCourse_id() {

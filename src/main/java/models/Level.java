@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -22,18 +23,20 @@ public class Level {
 	
 	// Constructors
 	public Level() {
-		// Empty Constructor
+		this.exercises = new ArrayList<Exercise>();
 	}
 	
 	public Level(String level_name) {
 		super();
 		this.level_name = level_name;
+		this.exercises = new ArrayList<Exercise>();
 	}
 	
 	public Level(long level_id, String level_name) {
 		super();
 		this.level_id = level_id;
 		this.level_name = level_name;
+		this.exercises = new ArrayList<Exercise>();
 	}
 
 	public long getLevel_id() {

@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -20,19 +21,20 @@ public class Language {
 	
 	// Constructors
 	public Language() {
-		// Empty Constructor
+		this.courses = new ArrayList<Course>();
 	}
 	
 	public Language(String language_name) {
 		super();
 		this.language_name = language_name;
+		this.courses = new ArrayList<Course>();
 	}
 	
-	public Language(long language_id, String language_name, List<Course> courses) {
+	public Language(long language_id, String language_name) {
 		super();
 		this.language_id = language_id;
 		this.language_name = language_name;
-		this.setCourses(courses);
+		this.courses = new ArrayList<Course>();
 	}
 
 	// Getters && Setters:

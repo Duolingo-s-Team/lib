@@ -19,11 +19,6 @@ public class League {
 		// Empty Constructor
 	}
 	
-	public League(int league_pos) {
-		super();
-		this.league_pos = league_pos;
-	}
-	
 	public League(long league_rank, int league_pos) {
 		super();
 		this.league_rank = league_rank;
