@@ -11,6 +11,8 @@ import models.Category;
 import models.Course;
 import models.Exercise;
 import models.ExerciseType;
+import models.Follower;
+import models.Following;
 import models.Language;
 import models.League;
 import models.Level;
@@ -47,6 +49,8 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Course.class);
                 configuration.addAnnotatedClass(Exercise.class);
                 configuration.addAnnotatedClass(ExerciseType.class);
+                configuration.addAnnotatedClass(Follower.class);
+                configuration.addAnnotatedClass(Following.class);
                	configuration.addAnnotatedClass(Language.class);
                 configuration.addAnnotatedClass(League.class);
                 configuration.addAnnotatedClass(Level.class);

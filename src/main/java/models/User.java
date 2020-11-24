@@ -30,11 +30,11 @@ public class User {
 	@ManyToMany(mappedBy = "users")
 	private List<Exercise> exercises;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
 	private List<Follower> followers;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")
 	private List<Following> following;
 	

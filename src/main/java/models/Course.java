@@ -22,7 +22,7 @@ public class Course {
 	private List<Category> categories;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "Users_Courses", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "course_id")})
+    @JoinTable(name = "User_Course", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "course_id")})
 	private List<User> users;
 	
 	// Constructors

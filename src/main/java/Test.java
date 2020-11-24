@@ -20,6 +20,7 @@ public class Test {
 		userManager.insertUser(u3);
 		
 		System.out.println(userManager.getUserByName("User2"));
+		
 		System.out.println(userManager.getAllUsers());
 		
 	}
