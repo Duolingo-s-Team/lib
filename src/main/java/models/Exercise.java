@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import modelsMtM.User;
-
 @Entity
 @Table(name = "exercises")
 public class Exercise {
