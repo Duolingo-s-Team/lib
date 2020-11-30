@@ -21,6 +21,10 @@ public class Category {
     @JoinColumn(name = "category_id")
 	private List<Level> levels;
 	
+	@ManyToOne()
+    @JoinColumn(name = "course_id")
+    private Course course;
+
 	// Constructors
 	public Category() {
 		this.levels = new ArrayList<Level>();
@@ -36,6 +40,13 @@ public class Category {
 		super();
 		this.category_id = category_id;
 		this.category_name = category_name;
+		this.levels = new ArrayList<Level>();
+	}
+	
+	public Category(String category_name, Course course) {
+		super();
+		this.category_name = category_name;
+		this.course = course;
 		this.levels = new ArrayList<Level>();
 	}
 

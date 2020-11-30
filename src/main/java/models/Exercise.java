@@ -22,6 +22,10 @@ public class Exercise {
 	private byte[] content;
 	private boolean isFinished;
 	
+	@ManyToOne()
+    @JoinColumn(name = "level_id")
+    private Level level;
+	
 	@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "users_exercises", joinColumns = {@JoinColumn(name = "exercise_id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})
 	private List<User> users;

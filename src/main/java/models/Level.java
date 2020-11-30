@@ -17,6 +17,10 @@ public class Level {
 	
 	private boolean isComplete;
 	
+	@ManyToOne()
+    @JoinColumn(name = "category_id")
+    private Category category;
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "exercise_id")
 	private List<Exercise> exercises;

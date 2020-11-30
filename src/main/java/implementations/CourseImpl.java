@@ -48,22 +48,66 @@ public class CourseImpl implements ICourse {
 	}
 	
 	@Override
-	public Course getCourseByName(String course_name) {
+	public List<Course> getCoursesByOriginLanguage(String language_name) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
 	        CriteriaQuery<Course> query = queryBuilder.createQuery(Course.class);
 	        Root<Course> from = query.from(Course.class);
 	        ParameterExpression<String> where = queryBuilder.parameter(String.class);
 	        
-	        CriteriaQuery<Course> select = query.select(from).where(queryBuilder.equal(from.get("course_name"), where));
+	        CriteriaQuery<Course> select = query.select(from).where(queryBuilder.equal(from.get("course_lang_from"), where));
 	        TypedQuery<Course> allQuery = session.createQuery(select);
 	        
-	        allQuery.setParameter(where, course_name);
+	        allQuery.setParameter(where, language_name);
 	      
-	        return allQuery.getResultList().get(allQuery.getFirstResult());
+	        return allQuery.getResultList();
 			
 		} catch (Exception e) {
-			System.out.println("Exception while getting the course with name '" + (course_name) + "'.");
+			System.out.println("Exception while getting the course with name '" + (language_name) + "'.");
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Course> getCoursesByDestinationLanguage(String language_name) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Course> query = queryBuilder.createQuery(Course.class);
+	        Root<Course> from = query.from(Course.class);
+	        ParameterExpression<String> where = queryBuilder.parameter(String.class);
+	        
+	        CriteriaQuery<Course> select = query.select(from).where(queryBuilder.equal(from.get("course_lang_to"), where));
+	        TypedQuery<Course> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, language_name);
+	      
+	        return allQuery.getResultList();
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting the course with name '" + (language_name) + "'.");
+		}
+		return null;
+	}
+	
+	@Override
+	public Course getCourseByLanguage(String origin_language, String destination_language) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Course> query = queryBuilder.createQuery(Course.class);
+	        Root<Course> from = query.from(Course.class);
+	        ParameterExpression<String> where = queryBuilder.parameter(String.class);
+	        ParameterExpression<String> and = queryBuilder.parameter(String.class);
+	        
+	        CriteriaQuery<Course> select = query.select(from).where(queryBuilder.and(queryBuilder.equal(from.get("course_lang_from"), where), queryBuilder.equal(from.get("course_lang_to"), and)));
+	        TypedQuery<Course> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, origin_language);
+	        allQuery.setParameter(and, destination_language);
+	      
+	        return allQuery.getResultList().get(0);
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting the course with origin language '" + (origin_language) + "' and destination language '" + (destination_language) + "'.");
 		}
 		return null;
 	}
