@@ -13,9 +13,9 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long course_id;
 	
-	@Column(unique = true)
-	private String course_name;
-	
+	private String course_lang_from;
+	private String course_lang_to;
+
 	private boolean isFinished;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -32,17 +32,19 @@ public class Course {
 		this.users = new ArrayList<User>();
 	}
 	
-	public Course(String course_name) {
+	public Course(String course_lang_from, String course_lang_to) {
 		super();
-		this.course_name = course_name;
+		this.course_lang_from = course_lang_from;
+		this.course_lang_to = course_lang_to;
 		this.categories = new ArrayList<Category>();
 		this.users = new ArrayList<User>();
 	}
 	
-	public Course(long course_id, String course_name) {
+	public Course(long course_id, String course_lang_from, String course_lang_to) {
 		super();
 		this.course_id = course_id;
-		this.course_name = course_name;
+		this.course_lang_from = course_lang_from;
+		this.course_lang_to = course_lang_to;
 		this.categories = new ArrayList<Category>();
 		this.users = new ArrayList<User>();
 	}
@@ -54,15 +56,23 @@ public class Course {
 	public void setCourse_id(long course_id) {
 		this.course_id = course_id;
 	}
-
-	public String getCourse_name() {
-		return course_name;
-	}
-
-	public void setCourse_name(String course_name) {
-		this.course_name = course_name;
-	}
 	
+	public String getCourse_lang_from() {
+		return course_lang_from;
+	}
+
+	public void setCourse_lang_from(String course_lang_from) {
+		this.course_lang_from = course_lang_from;
+	}
+
+	public String getCourse_lang_to() {
+		return course_lang_to;
+	}
+
+	public void setCourse_lang_to(String course_lang_to) {
+		this.course_lang_to = course_lang_to;
+	}
+
 	public boolean isFinished() {
 		return isFinished;
 	}

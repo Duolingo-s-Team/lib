@@ -1,23 +1,32 @@
-import implementations.UserImpl;
-import interfaces.IUser;
-import models.Exercise;
-import models.User;
+import implementations.CourseImpl;
+import interfaces.ICourse;
+import models.Category;
+import models.Course;
 
 public class Test {
 
 	public static void main(String[] args) {
-		User u1 = new User("test", "1234", 0, "", 1, "test@duolingo.com");
+		ICourse courseManager = new CourseImpl();
+		Course spanishEnglish = new Course("Spanish", "English");
+		Course spanishCatalan = new Course("Spanish", "Catalan");
 		
-		Exercise e1 = new Exercise("Translate", 5, null);
-		Exercise e2 = new Exercise("Listen", 10, null);
+		Category viajes = new Category("viajes");			// Spanish
+		Category comida = new Category("comida");			// Spanish
+		Category animales = new Category("animales");		// Spanish
+		Category vegetacio = new Category("vegetacio");		// Spanish
+		Category tecnologia = new Category("tecnologia");	// Spanish
+		Category familia = new Category("familia");			// Spanish
 		
-		u1.addExercise(e1);
-		u1.addExercise(e2);
+		spanishEnglish.addCategory(viajes);
+		spanishEnglish.addCategory(comida);
+		spanishEnglish.addCategory(animales);
 		
-		IUser userManager = new UserImpl();
+		spanishCatalan.addCategory(vegetacio);
+		spanishCatalan.addCategory(tecnologia);
+		spanishCatalan.addCategory(familia);
 		
-		userManager.insertUser(u1);
-		
+		courseManager.insertCourse(spanishEnglish);
+		courseManager.insertCourse(spanishCatalan);
 		
 	}
 

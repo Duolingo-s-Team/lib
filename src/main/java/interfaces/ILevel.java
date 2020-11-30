@@ -12,6 +12,8 @@ public interface ILevel {
 	
 	public Level getLevelByName(String level_name);
 	
+	public List<Level> getLevelsByCategoryId(long category_id);
+	
 	public boolean deleteLevel(Level level);
 	
 	public Level insertLevel(Level level);

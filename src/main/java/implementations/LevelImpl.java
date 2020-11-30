@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import interfaces.ILevel;
+import models.Category;
 import models.Level;
 import utils.HibernateUtil;
 
@@ -64,6 +65,27 @@ public class LevelImpl implements ILevel {
 			
 		} catch (Exception e) {
 			System.out.println("Exception while getting the level with name '" + (level_name) + "'.");
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Level> getLevelsByCategoryId(long category_id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Level> query = queryBuilder.createQuery(Level.class);
+	        Root<Level> from = query.from(Level.class);
+	        ParameterExpression<Category> where = queryBuilder.parameter(Category.class);
+	        
+	        CriteriaQuery<Level> select = query.select(from).where(queryBuilder.equal(from.get("category"), where));
+	        TypedQuery<Level> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, new Category(category_id, ""));
+	      
+	        return allQuery.getResultList();
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting categories with category_id '" + (category_id) + "'.");
 		}
 		return null;
 	}

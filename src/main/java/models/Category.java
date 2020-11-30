@@ -21,6 +21,10 @@ public class Category {
     @JoinColumn(name = "category_id")
 	private List<Level> levels;
 	
+	@ManyToOne()
+    @JoinColumn(name = "course_id")
+    private Course course;
+
 	// Constructors
 	public Category() {
 		this.levels = new ArrayList<Level>();

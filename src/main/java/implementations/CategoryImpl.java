@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 
 import interfaces.ICategory;
 import models.Category;
+import models.Course;
 import utils.HibernateUtil;
 
 public class CategoryImpl implements ICategory {
@@ -64,6 +65,27 @@ public class CategoryImpl implements ICategory {
 			
 		} catch (Exception e) {
 			System.out.println("Exception while getting the category with name '" + (category_name) + "'.");
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Category> getCategoriesByCourseId(long course_id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Category> query = queryBuilder.createQuery(Category.class);
+	        Root<Category> from = query.from(Category.class);
+	        ParameterExpression<Course> where = queryBuilder.parameter(Course.class);
+	        
+	        CriteriaQuery<Category> select = query.select(from).where(queryBuilder.equal(from.get("course"), where));
+	        TypedQuery<Category> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, new Course(course_id, "", ""));
+	      
+	        return allQuery.getResultList();
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting categories with course_id '" + (course_id) + "'.");
 		}
 		return null;
 	}

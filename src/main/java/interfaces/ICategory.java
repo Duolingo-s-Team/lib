@@ -12,6 +12,8 @@ public interface ICategory {
 	
 	public Category getCategoryByName(String category_name);
 	
+	public List<Category> getCategoriesByCourseId(long course_id);
+	
 	public boolean deleteCategory(Category category);
 	
 	public Category insertCategory(Category category);
