@@ -42,6 +42,13 @@ public class Category {
 		this.category_name = category_name;
 		this.levels = new ArrayList<Level>();
 	}
+	
+	public Category(String category_name, Course course) {
+		super();
+		this.category_name = category_name;
+		this.course = course;
+		this.levels = new ArrayList<Level>();
+	}
 
 	// Getters && Setters:
 	public long getCategory_id() {
