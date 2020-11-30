@@ -10,7 +10,11 @@ public interface ICourse {
 	
 	public Course getCourseById(long course_id);
 	
-	public Course getCourseByName(String course_name);
+	public List<Course> getCoursesByOriginLanguage(String language_name);
+	
+	public List<Course> getCoursesByDestinationLanguage(String language_name);
+	
+	public Course getCourseByLanguage(String origin_language, String destination_language);
 	
 	public boolean deleteCourse(Course course);
 	
