@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "following")
-public class Following {
+public class Following implements Serializable {
 	
 	@Id
 	private long user_id;

@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "league")
-public class League {
+public class League implements Serializable {
 
 	@Id
 	private long league_rank;
