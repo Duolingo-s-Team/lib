@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "exercise_types")
-public class ExerciseType {
+public class ExerciseType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
