@@ -1,14 +1,20 @@
 package models;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "exercises")
@@ -20,7 +26,7 @@ public class Exercise implements Serializable {
 	
 	private String exercise_name;
 	private int exercise_exp;
-	private byte[] content;
+	private String content;
 	private boolean isFinished;
 	
 	@ManyToOne()
@@ -41,7 +47,7 @@ public class Exercise implements Serializable {
 		this.types = new ArrayList<ExerciseType>();
 	}
 	
-	public Exercise(String exercise_name, int exercise_exp, byte[] content) {
+	public Exercise(String exercise_name, int exercise_exp, String content) {
 		super();
 		this.exercise_name = exercise_name;
 		this.exercise_exp = exercise_exp;
@@ -75,21 +81,12 @@ public class Exercise implements Serializable {
 		this.exercise_exp = exercise_exp;
 	}
 
-	public byte[] getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(File content) {
-		try {
-			FileInputStream f = new FileInputStream(content);
-			this.content = f.readAllBytes();
-			f.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found. Please check the file's path." + e.getCause());
-		} catch (IOException e) {
-			System.out.println("Error while reading the given File." + e.getCause());
-		}
-		
+	public void setContent(String jsonContent) {
+		this.content = jsonContent;
 	}
 
 	public boolean isFinished() {

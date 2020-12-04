@@ -43,6 +43,13 @@ public class Level implements Serializable {
 		this.level_name = level_name;
 		this.exercises = new ArrayList<Exercise>();
 	}
+	
+	public Level(String level_name, Category category) {
+		super();
+		this.level_name = level_name;
+		this.category = category;
+		this.exercises = new ArrayList<Exercise>();
+	}
 
 	public long getLevel_id() {
 		return level_id;
