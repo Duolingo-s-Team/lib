@@ -1,3 +1,5 @@
+package test;
+
 import implementations.CourseImpl;
 import interfaces.ICourse;
 import models.Category;

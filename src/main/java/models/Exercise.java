@@ -55,6 +55,14 @@ public class Exercise implements Serializable {
 		this.users = new ArrayList<User>();
 		this.types = new ArrayList<ExerciseType>();
 	}
+	
+	public Exercise(String exercise_name, int exercise_exp, String content, Level level) {
+		super();
+		this.exercise_name = exercise_name;
+		this.exercise_exp = exercise_exp;
+		this.content = content;
+		this.level = level;
+	}
 
 	// Getters && Setters:
 	public long getExercise_id() {
