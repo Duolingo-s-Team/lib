@@ -14,17 +14,17 @@ public class JsonEncode {
 		JSONArray objectArray = new JSONArray();
 		
 		if (exercise_type.equals("TIPUS_TEST")) {
-			objectManager.put("Exercise_Type", exercise_type);
+			objectManager.put("exerciseType", exercise_type);
 			objectManager.put("exerciseExp", exerciseExp);
 			objectManager.put("exerciseCoins", exerciseCoins);
 			objectManager.put("sentenceToTranslate", question);
-			objectManager.put("Correct_Answer", correct_answer);
+			objectManager.put("correctAnswer", correct_answer);
 			
 			String[] totalAnswers = answers.split(";");
 			for (int i = 0; i < totalAnswers.length; i++) {
 				objectArray.add(totalAnswers[i]);
 			}
-			objectManager.put("Wrong_Answers", objectArray);
+			objectManager.put("wrongAnswers", objectArray);
 			
 			content = objectManager.toString();
 			return content;
@@ -33,7 +33,6 @@ public class JsonEncode {
 		// Futuros ELSE IF para crear una condicion para cada tipo de ejercicio
 		
 		return null;
-		
 	}
 
 }
