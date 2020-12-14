@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 
 import interfaces.IExercise;
 import models.Exercise;
+import models.Level;
 import utils.HibernateUtil;
 
 public class ExerciseImpl implements IExercise {
@@ -64,6 +65,27 @@ public class ExerciseImpl implements IExercise {
 			
 		} catch (Exception e) {
 			System.out.println("Exception while getting the exercise with name '" + (exercise_name) + "'.");
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Exercise> getExercisesByLevelId(long level_id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder queryBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Exercise> query = queryBuilder.createQuery(Exercise.class);
+	        Root<Exercise> from = query.from(Exercise.class);
+	        ParameterExpression<Level> where = queryBuilder.parameter(Level.class);
+	        
+	        CriteriaQuery<Exercise> select = query.select(from).where(queryBuilder.equal(from.get("level"), where));
+	        TypedQuery<Exercise> allQuery = session.createQuery(select);
+	        
+	        allQuery.setParameter(where, new Level(level_id, ""));
+	      
+	        return allQuery.getResultList();
+			
+		} catch (Exception e) {
+			System.out.println("Exception while getting categories with level_id '" + (level_id) + "'.");
 		}
 		return null;
 	}

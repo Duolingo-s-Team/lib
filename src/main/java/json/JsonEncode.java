@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 public class JsonEncode {
 
 	@SuppressWarnings("unchecked")
-	public static String jsonContentInsertTest(String exercise_type, String question, String correct_answer, String answers) {
+	public static String jsonContentInsertTest(String exercise_type, int exerciseExp, int exerciseCoins, String question, String correct_answer, String answers) {
 		
 		String content;
 
@@ -15,6 +15,8 @@ public class JsonEncode {
 		
 		if (exercise_type.equals("TIPUS_TEST")) {
 			objectManager.put("Exercise_Type", exercise_type);
+			objectManager.put("exerciseExp", exerciseExp);
+			objectManager.put("exerciseCoins", exerciseCoins);
 			objectManager.put("sentenceToTranslate", question);
 			objectManager.put("Correct_Answer", correct_answer);
 			
