@@ -1,30 +1,10 @@
-package rmi;
+package com.duolingo.client.rmi;
 
 import java.io.IOException;
 import java.net.Socket;
 
-import implementations.CategoryImpl;
-import implementations.CourseImpl;
-import implementations.ExerciseImpl;
-import implementations.ExerciseTypeImpl;
-import implementations.FollowerImpl;
-import implementations.FollowingImpl;
-import implementations.LanguageImpl;
-import implementations.LeagueImpl;
-import implementations.LevelImpl;
-import implementations.ShopImpl;
-import implementations.UserImpl;
-import interfaces.ICategory;
-import interfaces.ICourse;
-import interfaces.IExercise;
-import interfaces.IExerciseType;
-import interfaces.IFollower;
-import interfaces.IFollowing;
-import interfaces.ILanguage;
-import interfaces.ILeague;
-import interfaces.ILevel;
-import interfaces.IShop;
-import interfaces.IUser;
+import com.duolingo.client.rmi.interfaces.ICom;
+
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.IServerListener;
@@ -39,17 +19,7 @@ public class Servidor {
 		
 		try {
 			// Se registra el objeto en callHandler con la clase de la interfaz y el objeto de su implementacion
-			callHandler.registerGlobal(ICategory.class, new CategoryImpl());
-			callHandler.registerGlobal(ICourse.class, new CourseImpl());
-			callHandler.registerGlobal(IExercise.class, new ExerciseImpl());
-			callHandler.registerGlobal(IExerciseType.class, new ExerciseTypeImpl());
-			callHandler.registerGlobal(IFollower.class, new FollowerImpl());
-			callHandler.registerGlobal(IFollowing.class, new FollowingImpl());
-			callHandler.registerGlobal(ILanguage.class, new LanguageImpl());
-			callHandler.registerGlobal(ILeague.class, new LeagueImpl());
-			callHandler.registerGlobal(ILevel.class, new LevelImpl());
-			callHandler.registerGlobal(IShop.class, new ShopImpl());
-			callHandler.registerGlobal(IUser.class, new UserImpl());
+			callHandler.registerGlobal(ICom.class, new ComImpl());
 			
 		} catch (LipeRMIException e) {
 			System.out.println("Error al registrar el objecto" + e.getCause());
