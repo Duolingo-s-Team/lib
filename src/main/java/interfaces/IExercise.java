@@ -12,7 +12,7 @@ public interface IExercise {
 
 	public Exercise getExerciseByName(String exercise_name);
 	
-	public List<Exercise> getExercisesByLevelId(long category_id);
+	public List<Exercise> getExercisesByLevelId(long level_id);
 	
 	public boolean deleteExercise(Exercise exercise);
 	
