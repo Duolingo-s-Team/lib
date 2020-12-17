@@ -39,6 +39,7 @@ public class HibernateUtil {
                 settings.put(Environment.SHOW_SQL, "false");
 
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+                settings.put(Environment.ENABLE_LAZY_LOAD_NO_TRANS, "true");
 
                 settings.put(Environment.HBM2DDL_AUTO, "update");
 
