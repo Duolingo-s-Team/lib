@@ -14,7 +14,7 @@ public class Shop implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long product_id;
 	
-	@Column(unique = true)
+	
 	private String product_name;
 	private double product_price;
 	private boolean isPurchased;

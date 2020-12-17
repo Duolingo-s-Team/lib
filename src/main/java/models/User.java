@@ -14,7 +14,6 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long user_id;
 	
-	@Column(unique = true)
 	private String username;
 	private String password;
 	private int coins;
